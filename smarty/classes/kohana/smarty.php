@@ -8,11 +8,6 @@ include_once MODPATH . 'smarty/classes/lib/Smarty.class.php';
 class Kohana_Smarty extends Smarty {
 
     /**
-     * @var  string default directory where current action situated
-     */
-    private $_view_dir = null;
-
-    /**
      * @var string template extension
      **/
     private $_smarty_ext = '.tpl';
@@ -30,7 +25,7 @@ class Kohana_Smarty extends Smarty {
         //setup smarty
         $kohana_config = Kohana::$config->load('smarty');
 
-        $this->template_dir = array($kohana_config['template_dir']);
+        $this->template_dir = $kohana_config['template_dir'];
         $this->compile_dir = $kohana_config['compile_dir'];
         $this->plugins_dir = array_merge($this->plugins_dir, $kohana_config['plugin_dir']);
         $this->cache_dir = $kohana_config['cache_dir'];
@@ -55,16 +50,21 @@ class Kohana_Smarty extends Smarty {
      * @return void
      *
      */
-    public function render($template, $assign = null)
+    public function render($template_dir, $assign = null)
     {
-        $template = rtrim($template, '/'); // clean up ending of template, e.g. welcome/index/ to welcome/index
-        if (strpos($template, '/') !== false)
+        $template_dir = rtrim($template_dir, DIRECTORY_SEPARATOR); // clean up ending of template, e.g. welcome/index/ to welcome/index
+        $curr_template_dir = $this->template_dir[0];
+
+        if (strpos($template_dir, '/') === false)
         {
-            $template = rtrim(Kohana::$config->load('smarty.template_dir'), DIRECTORY_SEPARATOR) . $template . $this->_smarty_ext;
+            $curr_template_dir .= strip_tags( $this->tpl_vars['controller']->value );
         }
-        else
+
+        $curr_template_dir .= ltrim($template_dir, DIRECTORY_SEPARATOR) . $this->_smarty_ext;
+
+        if (!is_file($curr_template_dir))
         {
-            $template = $this->_view_dir . $template . $this->_smarty_ext;
+            return false;
         }
 
         if ($assign)
@@ -72,7 +72,8 @@ class Kohana_Smarty extends Smarty {
             $this->assign_all($assign);
         }
 
-        $this->display($template);
+        $this->display($curr_template_dir);
+        exit();
     }
 
     /*
@@ -96,9 +97,9 @@ class Kohana_Smarty extends Smarty {
      * @param string controller name
      * @return void
      */
-    public function set_view_dir( $view_dir )
+    public function set_template_dir( $template_dir )
     {
-        $this->_view_dir = $view_dir;
+        $this->template_dir = strip_tags( $template_dir );
     }
 
     /*

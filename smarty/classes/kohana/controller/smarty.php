@@ -20,11 +20,6 @@ abstract class Kohana_Controller_Smarty extends Controller {
     public function before()
     {
         $this->view = new Kohana_Smarty();
-        $action_dir = Kohana::$config->load('smarty.template_dir')
-            . $this->request->controller() . DIRECTORY_SEPARATOR;
-
-        // set default action directory: /views/controller_name/
-        $this->view->set_view_dir( $action_dir );
 
         $this->view->assign('controller', $this->request->controller());
         $this->view->assign('action',     $this->request->action());
