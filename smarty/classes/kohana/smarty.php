@@ -60,7 +60,7 @@ class Kohana_Smarty extends Smarty {
         $template = rtrim($template, '/'); // clean up ending of template, e.g. welcome/index/ to welcome/index
         if (strpos($template, '/') !== false)
         {
-            $template = rtrim(Kohana::$config->load('smarty.template_dir'), '/') . $template . $this->_smarty_ext;
+            $template = rtrim(Kohana::$config->load('smarty.template_dir'), DIRECTORY_SEPARATOR) . $template . $this->_smarty_ext;
         }
         else
         {

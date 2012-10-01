@@ -37,7 +37,7 @@ abstract class Kohana_Controller_Smarty extends Controller {
     {
         if ($this->view->is_auto_render_enabled())
         {
-            $this->view->render("/".$this->request->controller()."/".$this->request->action());
+            $this->view->render(DIRECTORY_SEPARATOR . $this->request->controller() . DIRECTORY_SEPARATOR . $this->request->action());
         }
 
     }
