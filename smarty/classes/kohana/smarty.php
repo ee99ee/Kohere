@@ -61,6 +61,7 @@ class Kohana_Smarty extends Smarty {
         }
 
         $curr_template_dir .= ltrim($template_dir, DIRECTORY_SEPARATOR) . $this->_smarty_ext;
+        $curr_template_dir = str_replace('_', DIRECTORY_SEPARATOR, $curr_template_dir);
 
         if (!is_file($curr_template_dir))
         {
