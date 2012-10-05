@@ -50,30 +50,16 @@ class Kohana_Smarty extends Smarty {
      * @return void
      *
      */
-    public function render($template_dir, $assign = null)
+    public function render($template_path = null, $assign = null)
     {
-        $template_dir = rtrim($template_dir, DIRECTORY_SEPARATOR); // clean up ending of template, e.g. welcome/index/ to welcome/index
-        $curr_template_dir = $this->template_dir[0];
-
-        if (strpos($template_dir, '/') === false)
-        {
-            $curr_template_dir .= strip_tags( $this->tpl_vars['controller']->value );
-        }
-
-        $curr_template_dir .= ltrim($template_dir, DIRECTORY_SEPARATOR) . $this->_smarty_ext;
-        $curr_template_dir = str_replace('_', DIRECTORY_SEPARATOR, $curr_template_dir);
-
-        if (!is_file($curr_template_dir))
-        {
-            return false;
-        }
+        $template_path = $this->_get_curr_template_path($template_path);
 
         if ($assign)
         {
             $this->assign_all($assign);
         }
 
-        $this->display($curr_template_dir);
+        $this->display($template_path);
         exit();
     }
 
@@ -120,5 +106,46 @@ class Kohana_Smarty extends Smarty {
      */
     public function set_auto_render( boolean $value) {
         $this->_auto_render_template = $value;
+    }
+
+    /*
+     * method returns physical path where requested template is positioned
+     * e.g. path to application/view/account/logout.tpl
+     *      1. 'account/logout' or 'account/logout/' or '/account/logout/'
+     *      2. if controller is 'account' and controller action is 'logout' $template_path can be choosed automatically
+     *
+     * @param string path to template inside views directory,
+     * @return mixed (string|boolean)
+     */
+    private function _get_curr_template_path( $template_path = null )
+    {
+        $template_path = empty($template_path) ? $this->tpl_vars['action']->value : $template_path;
+        // get root path of 'views' directory e.g: application/views
+        $curr_template_path = rtrim( $this->template_dir[0], DIRECTORY_SEPARATOR );
+
+        if ( strpos($template_path, DIRECTORY_SEPARATOR ) === false)
+        {
+            if ( !empty( $this->tpl_vars['directory']->value ))
+            {
+                $curr_template_path .= DIRECTORY_SEPARATOR . $this->tpl_vars['directory']->value;
+            }
+
+            if ( !empty( $this->tpl_vars['controller']->value ))
+            {
+                $curr_template_path .= DIRECTORY_SEPARATOR . $this->tpl_vars['controller']->value;
+            }
+        }
+
+        // clean up ending of template, e.g. welcome/index/ to welcome/index
+        $curr_template_path .= DIRECTORY_SEPARATOR . trim($template_path, DIRECTORY_SEPARATOR) . $this->_smarty_ext;
+        $curr_template_path = str_replace('_', DIRECTORY_SEPARATOR, $curr_template_path);
+        $curr_template_path = strip_tags( $curr_template_path );
+
+        if (is_file($curr_template_path))
+        {
+            return $curr_template_path;
+        }
+
+        return false;
     }
 }

@@ -21,6 +21,7 @@ abstract class Kohana_Controller_Smarty extends Controller {
     {
         $this->view = new Kohana_Smarty();
 
+        $this->view->assign('directory',  $this->request->directory());
         $this->view->assign('controller', $this->request->controller());
         $this->view->assign('action',     $this->request->action());
         $this->view->assign('current',    $this->request->current());
@@ -32,7 +33,7 @@ abstract class Kohana_Controller_Smarty extends Controller {
     {
         if ($this->view->is_auto_render_enabled())
         {
-            $this->view->render(DIRECTORY_SEPARATOR . $this->request->controller() . DIRECTORY_SEPARATOR . $this->request->action());
+            $this->view->render();
         }
 
     }
