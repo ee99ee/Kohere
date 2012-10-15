@@ -104,7 +104,8 @@ class Kohana_Smarty extends Smarty {
      * @param boolean
      * @return void
      */
-    public function set_auto_render( boolean $value) {
+    public function set_auto_render( $value ) {
+        if ( !is_bool($value) ) { return false; }
         $this->_auto_render_template = $value;
     }
 
