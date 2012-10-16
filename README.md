@@ -108,3 +108,6 @@ If you've stumbled across a bug, please help us out by [reporting the bug](https
 * Actual result
 
 This will help us to fix the bug as quickly as possible. Or, even better, if you'd like to fix it yourself feel free to [fork us on GitHub](https://github.com/huffingtonpost/huffpost-kohana-smarty/) and submit a pull request!
+
+## LICENSE
+This software is released under the Apache 2.0 open source license.
