@@ -21,7 +21,7 @@
     $this->view->render('/TEMPLATE_NAME'); // will render template under views/ directory
 </pre>
 
-By default, the module looks for tempaltes in the following structure
+By default, the module looks for templates in the following structure
 <pre>
 /views
       /controller        // controller name here
