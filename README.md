@@ -86,7 +86,7 @@ class Controller_Mycontroller extends Controller_Smarty {
        public function before()
        {    
             parent::before();
-            $this->view->set_template_dir('MODPATH/modules/mymodule/views/');
+            $this->view->set_template_dir(MODPATH.'/modules/mymodule/views/');
        }
        
        public function action_name1()
