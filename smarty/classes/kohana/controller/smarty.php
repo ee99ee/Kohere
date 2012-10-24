@@ -27,6 +27,11 @@ abstract class Kohana_Controller_Smarty extends Controller {
         $this->view->assign('current',    $this->request->current());
         $this->view->assign('detect_uri', $this->request->detect_uri());
         $this->view->assign('directory',  $this->request->directory());
+
+        if ($this->request->current()->is_ajax())
+        {
+            $this->view->set_auto_render( FALSE );
+        }
     }
 
     public function after()
