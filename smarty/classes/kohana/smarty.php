@@ -139,7 +139,6 @@ class Kohana_Smarty extends Smarty {
 
         // clean up ending of template, e.g. welcome/index/ to welcome/index
         $curr_template_path .= DIRECTORY_SEPARATOR . trim($template_path, DIRECTORY_SEPARATOR) . $this->_smarty_ext;
-        $curr_template_path = str_replace('_', DIRECTORY_SEPARATOR, $curr_template_path);
         $curr_template_path = strip_tags( $curr_template_path );
 
         if (is_file($curr_template_path))
