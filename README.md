@@ -1,5 +1,5 @@
 # Kohere
-[Kohere](https://github.com/huffingtonpost/Kohere) is a module for the [Kohana](http://ww.kohanaframework.org) PHP framework to support clean integration of the [Smarty](http://www.smarty.net/) template engine with Kohana views.
+[Kohere](https://github.com/huffingtonpost/Kohere) is a module for the [Kohana](http://www.kohanaframework.org) PHP framework to support clean integration of the [Smarty](http://www.smarty.net/) template engine with Kohana views.
 
 ## Documentation
 ### Setup instructions
