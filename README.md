@@ -1,5 +1,5 @@
-# Smarty Module for Kohana
-[Smarty Module for Kohana](https://github.com/huffingtonpost/huffpost-kohana-smarty) is a module for the Kohana PHP framework to support clean integration of the Smarty template engine with Kohana views.
+# Kohere
+[Kohere](https://github.com/huffingtonpost/Kohere) is a module for the [Kohana](http://ww.kohanaframework.org) PHP framework to support clean integration of the [Smarty](http://www.smarty.net/) template engine with Kohana views.
 
 ## Documentation
 ### Setup instructions
